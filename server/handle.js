@@ -1,30 +1,70 @@
-const puppeteer = require('puppeteer');
-(async ()=>{
-    try{
-        // 创建一个浏览器实例 Browser 对象
-        let browser = await puppeteer.launch({
-            // 是否不显示浏览器， 为true则不显示
-            'headless': false,
+let puppeteer = require("puppeteer");
+let ycy_wb = async function(url,code) {
+    console.log(url+code);
+    // open a brower
+    let browser = await puppeteer.launch({
+        executablePath:"C:/Program Files (x86)/Google/Chrome/Application/chrome.exe",
+        //headless: false,
+        // args: [
+        //     "--window-size=1920,1080"
+        // ]
+    });
+
+    // 开一个新的页签
+    let newYcyPage = await browser.newPage();
+    await newYcyPage.setViewport({width:1920, height:1080});
+    // open the weibo
+    await newYcyPage.goto(url);
+    
+    // <h1 class="username"> elements
+    await newYcyPage.waitFor("h1.username");
+    await newYcyPage.waitFor(3000); // 单位是毫秒
+    // require jquery
+    await newYcyPage.addScriptTag({
+        url: "https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"
+    });
+    
+     // 获取车源列表
+    let CAR_LIST_SELECTOR = '#Pl_Official_MyProfileFeed__20 > div';
+    //let CAR_LIST_SELECTOR = '#Pl_Official_MyProfileFeed__20 > div > div:nth-child(2) > div.WB_feed_detail.clearfix > div.WB_detail > div.WB_media_wrap.clearfix';
+    console.log("开始搜寻界面内容");
+    let ycyWbList = await newYcyPage.evaluate((sel) => {
+        console.log(sel);
+        let catBoxs = Array.from($(sel).find('div.WB_cardwrap'));
+        console.log(catBoxs.length);
+        let ctn = catBoxs.map(v => {
+            let time = $(v).find('div.WB_feed_detail > div.WB_detail > div.WB_from').text().replace(/[\r\n]/g, "").trim();
+            let content = $(v).find('div.WB_feed_detail > div.WB_detail > div.WB_text').text().replace(/[\r\n]/g, "").trim();
+            let photo;//{};// $('#Pl_Official_MyProfileFeed__20 > div > div:nth-child(2) > div.WB_feed_detail.clearfix > div.WB_detail > div.WB_media_wrap.clearfix > div > ul > li > img').attr("src");
+            try{
+                photo = Array.from($(v).find('div.WB_feed_detail > div.WB_detail > div.WB_media_wrap.clearfix > div > ul > li')).map(w => {
+                    let photoAdd = $(w).find("img").attr("src");
+                    return photoAdd;
+                });
+            }catch(err){}
+            return {
+                time: time,
+                content: content,
+                photo:photo
+            };
         });
-        // 通过浏览器实例 Browser 对象创建页面 Page 对象
-        let page = await browser.newPage();
-        // 设置浏览器信息
-        const UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/63.0.3239.84 Chrome/63.0.3239.84 Safari/537.36";
-        await Promise.all([
-            page.setUserAgent(UA),
-            // 允许运行js
-            page.setJavaScriptEnabled(true),
-            // 设置页面视口的大小
-            page.setViewport({width: 1100, height: 1080}),
-        ]);
-        // 地址
-        let chapter_list_url = `https://www.douban.com/search?q=%E6%9D%A8%E8%B6%85%E8%B6%8A`
-        // 打开章节列表
-        await page.goto(chapter_list_url);
-        // 使用css选择器的方式
-        let content= await page.$eval('#content > div > div.article > div.search-result > div:nth-child(3) > div:nth-child(1) > div.content > div > h3', el => el.innerText);
-        console.log(content);
-    }catch(err){
-        console.log(err)
-    }
-})()
+        return ctn;
+    }, CAR_LIST_SELECTOR);
+
+    // // get page
+    // let result = await newYcyPage.evaluate(() => {
+    //     let ret;
+    //     try {
+    //         ret = $("#Pl_Official_MyProfileFeed__20 > div").html();
+    //     } catch (err) {
+    //         ret = err.message;
+    //     }
+    //     return ret;
+    // });
+
+    console.log(ycyWbList);
+
+    await browser.close();    
+};
+
+ycy_wb("https://weibo.com/u/5644764907?www.520730.com=&is_hot=1#1552099793389","");

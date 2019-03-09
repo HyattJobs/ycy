@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "mongodb": "^3.1.13",
-    "puppeteer": "^1.13.0"
+    "puppeteer": "^1.13.0",
+    "querystringify": "^2.1.0"
   }
 }

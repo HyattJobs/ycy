@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>CSS3 + JavaScript滚动动画库Scrollanim演示_dowebok</title>
+<link rel="stylesheet" href="css/kissui.css">
+<link rel="stylesheet" href="css/scrollanim.min.css">
+<style>
+.wrap { margin: 50px auto; text-align: center; background-color: #f0f0f0;}
+.container .column { float: none; margin: 30% auto 0; text-align: center;}
+.container .row:last-child .column { margin-bottom: 30%;}
+pre { text-align: left;}
+</style>
+</head>
+
+<body>
+<div class="container">
+	<div class="row">
+		<div class="one-half column" data-kui-anim="fadeIn">
+			<h1>Scrollanim</h1>
+			<p><strong>Scrollanim</strong> 是一款用 CSS3 和 JavaScript 实现的滚动动画库，它可以用在任何地方。</p>
+			<p>想看更多效果？请往下滚动。</p>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="one-half column" data-kui-anim="zoomIn">
+			<h2>使用简单</h2>
+			<p><strong>Scrollanim</strong> 有很多内置的 CSS3 动画，你可以添加到元素的 data-kui-anim 属性上。</p>
+			<pre>&lt;div data-kui-anim="fadeIn"&gt;<br>
+欢迎来到 www.dowebok.com<br>
+&lt;/div&gt;</pre>
+			<p>就是这样，很酷，是吧？</p>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="one-half column" data-kui-anim="rubberBand">
+			<h2>高级模式</h2>
+			<p>此外，还可以使用 JavaScript 来添加动画：</p>
+			<pre>kissuiScrollAnim.add(element, {<br>
+'in': 'fadeIn'<br>
+});</pre>
+			<p><strong>Scrolanim</strong> 支持元素所有可用的位置，还可以使用复合事件名称（如："center middle"）。</p>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="one-half column" data-kui-anim="flipInY">
+			<h2>CSS3 动画</h2>
+			<p><strong>Scrolanim</strong> 有很多 CSS3 动画可以使用，没有 JavaScript 动画，使性能更好。</p>
+			<p>可以运行在 PC 和移动设备。</p>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="one-half column" data-kui-anim="infinite pulse">
+			<h2>无限动画</h2>
+			<p><strong>Scrolanim</strong> 的动画名接受 infinite 参数，可让动画一直重复播放。</p>
+		</div>
+	</div>
+
+	<div class="row">
+		<div id="dowebok" class="one-half column">
+			<h2><i class="fa fa-heart" style="color: #D81818;"></i> 喜欢吗？</h2>
+			<p>好了，很高兴你能喜欢它。下一步就是使用 CND 或下载并应用到项目中。</p>
+		</div>
+	</div>
+</div>
+
+<script src="js/scrollanim.min.js"></script>
+<script>
+kissuiScrollAnim.add(document.getElementById('dowebok'), {
+	'in': 'bounceIn'
+});
+</script>
+
+</body>
+</html>

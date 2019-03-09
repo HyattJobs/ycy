@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>杨超越_best</title>
+    <script src="./js/jquery-3.3.1.js"></script>
+    <!-- WOW.js -->
+    <link rel="stylesheet" href="./css/animate.css">
+    <link rel="stylesheet" href="./css/kissui.css">
+    <link rel="stylesheet" href="./css/scrollanim.min.css">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-repeat:no-repeat;
+            background-size:100% 100%; 
+            background-attachment: fixed;
+            overflow-x: hidden; 
+            overflow-y: hidden; 
+        }
+        ::-webkit-scrollbar{
+            display:none;
+        }
+        
+        #div1{
+            background-color: rgba(0,0,0,0.2);
+            float: left;
+            width: 50%;
+            height: 50%;
+        }
+
+        .div1_head {
+            position: relative;
+            margin: 0 0 0 50px;
+            animation-duration: 0.5s;
+            animation-delay: 0.2s;
+            /* animation-iteration-count: infinite; */
+        }
+
+        .div1_star{
+            position: relative;
+            width: 0px;
+            height: 0px;
+            top: -20px;
+            left: -20px;
+            float: left;
+            border-style: solid;
+            animation: snowDown 1s linear normal;
+            -webkit-animation: snowDown 1s linear normal;
+            animation-delay:0.5s;
+            -webkit-animation-delay:0.5s; /* Safari 和 Chrome */
+            animation-fill-mode:forwards;
+        }
+        @keyframes snowDown {
+            from {
+                opacity: 1;
+                top: -20px;
+                left: -20px;
+                /* transform: rotateX(0deg);
+                -webkit-transform: rotateX(0deg);  */
+                transform: rotateY(0deg);
+                -webkit-transform: rotateY(0deg); 
+            }
+            to {
+                opacity: 0;
+                top: 40px;
+                left: 50px;
+                /* transform: rotateX(130deg);
+                -webkit-transform: rotateX(130deg);  */
+                transform: rotateY(130deg);
+                -webkit-transform: rotateY(130deg); 
+            }
+        }
+        
+        .div1_star1{
+            height: 10px;
+            border-width: 11px;
+            margin-left: 20px;
+            margin-top: 10px;
+            border-color:#FFFFFF transparent transparent transparent;
+            transform:rotate(-20deg);
+            -ms-transform:rotate(-20deg); 	/* IE 9 */
+            -moz-transform:rotate(-20deg); 	/* Firefox */
+            -webkit-transform:rotate(-20deg); /* Safari 和 Chrome */
+            -o-transform:rotate(-20deg);	/* Opera */
+        }
+
+        .div1_star2{
+            height: 10px;
+            border-width: 10px;
+            margin-left: 40px;
+            margin-top: -40px;
+            border-color:#FFCCCC transparent transparent transparent;
+            transform:rotate(-20deg);
+            -ms-transform:rotate(-20deg); 	/* IE 9 */
+            -moz-transform:rotate(-20deg); 	/* Firefox */
+            -webkit-transform:rotate(-20deg); /* Safari 和 Chrome */
+            -o-transform:rotate(-20deg);	/* Opera */
+        }
+
+        .div1_star3{
+            height: 10px;
+            border-width: 13px;
+            margin-left: 60px;
+            margin-top: -50px;
+            border-color:#ef5b9c transparent transparent transparent;
+            transform:rotate(-20deg);
+            -ms-transform:rotate(-20deg); 	/* IE 9 */
+            -moz-transform:rotate(-20deg); 	/* Firefox */
+            -webkit-transform:rotate(-20deg); /* Safari 和 Chrome */
+            -o-transform:rotate(-20deg);	/* Opera */
+        }
+
+        .div1_star4{
+            height: 10px;
+            border-width: 10px;
+            margin-left: 90px;
+            margin-top: -60px;
+            border-color:#FFCCCC transparent transparent transparent;
+            transform:rotate(-20deg);
+            -ms-transform:rotate(-20deg); 	/* IE 9 */
+            -moz-transform:rotate(-20deg); 	/* Firefox */
+            -webkit-transform:rotate(-20deg); /* Safari 和 Chrome */
+            -o-transform:rotate(-20deg);	/* Opera */
+        }
+
+        .div1_star5{
+            height: 10px;
+            border-width: 10px;
+            margin-left: 60px;
+            margin-top: -30px;
+            border-color:#FFFFFF transparent transparent transparent;
+            transform:rotate(-20deg);
+            -ms-transform:rotate(-20deg); 	/* IE 9 */
+            -moz-transform:rotate(-20deg); 	/* Firefox */
+            -webkit-transform:rotate(-20deg); /* Safari 和 Chrome */
+            -o-transform:rotate(-20deg);	/* Opera */
+        }
+
+        .div1_star6{
+            height: 10px;
+            border-width: 10px;
+            margin-left: 80px;
+            margin-top: -40px;
+            border-color:#FFCCCC transparent transparent transparent;
+            transform:rotate(-20deg);
+            -ms-transform:rotate(-20deg); 	/* IE 9 */
+            -moz-transform:rotate(-20deg); 	/* Firefox */
+            -webkit-transform:rotate(-20deg); /* Safari 和 Chrome */
+            -o-transform:rotate(-20deg);	/* Opera */
+        }
+
+        .div1_head_tip{
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 30px 20px 20px 0px;
+            padding: 4px;
+            background: #fff;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+        }
+        .div1_headimg{
+            width: 100px;
+            height: 100px;
+            border-radius:50%;
+        }
+
+        .div1_hatimg{
+            float: left;
+            margin-top: -150px;
+            top: -150px;
+            width: 100px;
+            height: 100px;
+        }
+
+        .div1_content{
+            position: absolute;
+            top: 0;
+            width: 50%;
+            height: 26px;
+            background-color: crimson;
+            text-align: center;
+        }
+
+        .div1_wbtime{
+            float: right;
+            background-color:darkblue;
+        }
+        #div2{
+            background-color: rgba(0,0,0,0.9);
+            float: left;
+            width: 50%;
+            height: 50%;
+        }
+        #div3{
+            background-color: rgba(0,0,0,0.9);
+            float: left;
+            width: 50%;
+            height: 50%;
+        }
+        #div4{
+            background-color: rgba(0,0,0,0.2);
+            float: left;
+            width: 50%;
+            height: 50%;
+        }
+    </style>
+</head>
+<body background="./img/body_img.jpg">
+    <div id="div1">
+        <!-- not infinite -->
+        <div id="div1_head" class="div1_head slideInLeft animated">
+            <div class="div1_head_tip">
+                <img class="div1_headimg" src="./img/head.jpg" alt="火箭少女101_杨超越" >
+                <img class="div1_hatimg" src="./img/hat.jpg" alt="火箭少女101_杨超越" >
+                <div>
+                    <div class="div1_star div1_star1"></div>
+                    <div class="div1_star div1_star2"></div>
+                    <div class="div1_star div1_star3"></div>
+                    <div class="div1_star div1_star4"></div>
+                    <div class="div1_star div1_star5"></div>
+                    <div class="div1_star div1_star6"></div>
+                </div>
+            </div>
+        </div>
+        <!-- wb title -->
+        <div class="div1_content">
+            <div>
+            <h4 class="div1_title" data-kui-anim="flipInY">
+                    超越又发微博了
+            </h4>
+            <span class="div1_wbtime">2018-12-24 17:33 来自 iPhone 7 Plus</span>
+            </div>
+            <div class="div1_conval">
+
+            </div>
+        </div>
+    </div>
+    <div id="div2">
+           
+    </div>
+    <div id="div3">
+            {{ message }}
+    </div>    
+    <div id="div4">
+            {{ message }}
+    </div>
+    <script src="./js/scrollanim.min.js"></script>
+    <script>
+    // not support ie6-9
+    if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))){
+		(function(){})();
+    }else{
+        alert("不支持IE6-9浏览器")
+    };
+    var $animate = $('#animate');
+    
+
+    kissuiScrollAnim.add(document.getElementById('dowebok'), {
+        'in': 'bounceIn'
+    });
+
+    //$animate.
+    </script>
+</body>
+</html>
