@@ -10,19 +10,9 @@ let ycy_wb = async function(url,code) {
 		        throw err;
 		    console.log(result);
 		    db.close();
-		    //return result;
 	    });
 	});
 	console.log(client);
 }
 
 ycy_wb(url,"cod3");
-// use admin
-// db.createUser(
-//   {
-//     user: "best", //用户
-//     pwd: "best", //密码
-//     roles: [ { role: "userAdminAnyDatabase", db: "admin" } ] //权限
-//   }
-// )
-// mongo --port 27017 -u "best" -p "best" --authenticationDatabase "admin"
