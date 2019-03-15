@@ -9,7 +9,7 @@ let ycy_wb = async function(url,code) {
 		    if (err) 
 		        throw err;
 		    console.log(result);
-		    db.close();
+		   // db.close();
 	    });
 	});
 	console.log(client);

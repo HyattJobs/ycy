@@ -200,6 +200,26 @@
             float: right;
             background-color:darkblue;
         }
+
+        .div1_conval{
+            position: absolute;
+            width: 400px;
+            height: auto;
+            background: #f30000;
+            margin: 0 auto;
+            left: 50%;
+            margin-left: -150px;
+            text-align: left;
+            
+            box-sizing: border-box;
+        }
+
+        .div1_video{
+            position: absolute;
+            right: 0px;
+            /*bottom: 0px;*/
+        }
+
         #div2{
             background-color: rgba(0,0,0,0.9);
             float: left;
@@ -207,10 +227,11 @@
             height: 50%;
         }
         #div3{
-            background-color: rgba(0,0,0,0.9);
-            float: left;
+            background-color: #f30;
+            /*float: left;*/
             width: 50%;
-            height: 50%;
+            height: 40%;
+            margin-top:30%;
         }
         #div4{
             background-color: rgba(0,0,0,0.2);
@@ -244,11 +265,17 @@
             <h4 class="div1_title" data-kui-anim="flipInY">
                     超越又发微博了
             </h4>
-            <span class="div1_wbtime">2018-12-24 17:33 来自 iPhone 7 Plus</span>
+            <span id="wb_time" class="div1_wbtime">时间</span>
             </div>
-            <div class="div1_conval">
-
+            <div id="wb_content" class="div1_conval" >
+                &nbsp&nbsp
             </div>
+            <video id="wb_video" class="div1_video fadeInDownBig animated" width="320" height="240" controls>
+                <source src="movie.mp4" type="video/mp4">
+                <source src="movie.ogg" type="video/ogg">
+                您的浏览器不支持 video 标签。
+            </video>
+            <img src="http://wx4.sinaimg.cn/thumb150/006a0Rdhly1fyhyvt3648j31o027vx2t.jpg">
         </div>
     </div>
     <div id="div2">
@@ -269,11 +296,36 @@
         alert("不支持IE6-9浏览器")
     };
     var $animate = $('#animate');
-    
-
-    kissuiScrollAnim.add(document.getElementById('dowebok'), {
-        'in': 'bounceIn'
+    let url = "http://localhost:2300/";
+    let userData = {"NA":"NA"};
+    $.get(url+"wb_data",function(data,status){
+        console.log(data);
+        //$("#wb_content").text(data);
+        wb_contine(data[0].na);
     });
+
+    function wb_contine(data) {
+        let split_data = data.split("");
+        let setTime = 0;
+        for (var i = 0; i < split_data.length; i++) {
+            let data_l =split_data[i];
+            setTimeout(function(){ 
+                wb_content(data_l);  
+            }, setTime);
+            setTime += 100;
+        }
+    }
+
+    function wb_content(data) {
+        $("#wb_content").text($("#wb_content").text()+data);
+        console.log(data);
+    }
+
+        // kissuiScrollAnim.add(document.getElementById('dowebok'), {
+        //     'in': 'bounceIn'
+        //     });
+    document.getElementById("wb_video").src="C:/Users/best/Desktop/new/ycy/server/file/ycy.mp4";
+    document.getElementById("wb_video").play();
 
     //$animate.
     </script>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="author" content="http://www.softwhy.com/" />
+<title>蚂蚁部落</title>
+<style>
+.spinner {
+  width:60px;
+  height:60px;
+  background:#67CF22;
+  margin:100px auto;
+  -webkit-animation:rotateplane 1.2s ease-in-out;
+  animation:rotateplane 1.2s  ease-in-out;
+}
+  
+@-webkit-keyframes rotateplane {
+  0% {
+    -webkit-transform:perspective(220px);
+  }
+  50% {
+    -webkit-transform:perspective(220px) rotateY(180deg);
+  }
+  100% {
+  	-webkit-transform:perspective(220px) rotateY(180deg);
+    /*-webkit-transform:perspective(220px) rotateY(180deg) rotateX(180deg);*/
+  }
+}
+@keyframes rotateplane {
+  0% {
+    transform:perspective(120px) rotateY(0) rotateX(0);
+    -webkit-transform:perspective(220px) rotateY(0) rotateX(0);
+  }
+  50% {
+    transform:perspective(120px) rotateY(0) rotateX(-180.1deg);
+    -webkit-transform:perspective(220px) rotateY(0) rotateX(-180.1deg);
+  }
+  100% {
+  	transform:perspective(120px) rotateY(0) rotateX(-180.1deg);
+    -webkit-transform:perspective(220px) rotateY(0) rotateX(-180.1deg);
+ 
+    /*transform:perspective(120px) rotateY(-179.9deg) rotateX(-180deg);*/
+    /*-webkit-transform:perspective(220px) rotateY(-179.9deg) rotateX(-180deg);*/
+  }
+}
+</style>
+</head>
+<body>
+<div class="spinner"></div>
+</body>
+</html>
