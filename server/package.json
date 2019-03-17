@@ -2,6 +2,7 @@
   "dependencies": {
     "express": "^4.16.4",
     "mongodb": "^3.1.13",
+    "node-uuid": "^1.4.8",
     "puppeteer": "^1.13.0",
     "querystringify": "^2.1.0",
     "request": "^2.88.0"

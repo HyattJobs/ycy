@@ -21,7 +21,7 @@
   
   5.exist 方法,是否存在某一数据方法
  
-### -server.js 服务类
+### -server_core_core.js 服务类
  利用nodejs的express框架当做的服务器
  前台对应后台的接口
   > /data/weibo?data=xx?        #微博获取接口
@@ -36,7 +36,7 @@
   
   > /analysis/id=xx?          #分析数据接口
   * videoVal 短视频处理方法(照片有其对应的地址,但视频地址好像会失效,所以保存到本地)
-### - analysis.js 处理类
+### - analysis_ai.js 处理类
 主要处理微博,贴吧的评论消息
 利用百度ai的接口处理评论的消息,并把反馈的消息放置hpday数据库的weibo_mood,teiba_mood,weibo_index,teiba_index集合里面
 

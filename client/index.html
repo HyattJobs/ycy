@@ -262,10 +262,10 @@
         <!-- wb title -->
         <div class="div1_content">
             <div>
-            <h4 class="div1_title" data-kui-anim="flipInY">
+            <h4 id="wb_title" class="div1_title" data-kui-anim="flipInY">
                     超越又发微博了
             </h4>
-            <span id="wb_time" class="div1_wbtime">时间</span>
+            <span id="wb_time" class="div1_wbtime">👪时间</span>
             </div>
             <div id="wb_content" class="div1_conval" >
                 &nbsp&nbsp
@@ -321,10 +321,12 @@
         console.log(data);
     }
 
+    $("#wb_title").text(decodeURI(encodeURI("👪时间")));
         // kissuiScrollAnim.add(document.getElementById('dowebok'), {
         //     'in': 'bounceIn'
         //     });
-    document.getElementById("wb_video").src="C:/Users/best/Desktop/new/ycy/server/file/ycy.mp4";
+    //document.getElementById("wb_video").src="C:/Users/best/Desktop/new/ycy/server_core/file/ycy.mp4";
+    document.getElementById("wb_video").src="http://f.us.sinaimg.cn/001IB7NNlx07r03xU2py01041200bgbQ0E010.mp4?label=mp4_720p&template=960x720.20.0&Expires=1552816791&ssig=KlYNnJT%2FJ0&KID=unistore,video";
     document.getElementById("wb_video").play();
 
     //$animate.
