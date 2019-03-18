@@ -18,4 +18,5 @@ let getRealTime = function(time){
         F_:time.substring(inx,time.length)
     };
 }
-console.log(getCurrYear());
+export {getCurrYear,getRealTime};
+// console.log(getCurrYear());

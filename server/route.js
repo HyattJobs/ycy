@@ -1,32 +1,56 @@
-var express = require('express');
-var router = express.Router();
-var MongoClient = require('mongodb').MongoClient;
-var database;
+let express = require('express');
+let router = express.Router();
+let MongoClient = require('mongodb').MongoClient;
+var querystring = require('querystring');
+let database;
 
-var DB_URL = 'mongodb://35.235.89.251:27017/';
-var DB_NAME = "hpday";
-
+let DB_URL = 'mongodb://35.235.89.251:27017/';
+let DB_CODE = "hpday";
+let CONN_CODE = "wb";
 //启动时连接数据库
 MongoClient.connect(DB_URL, {useNewUrlParser: true}, function (err, db) {
     if (err)
         throw err;
-    console.log("连接成功！");
+    console.log("database connect success！");
     database = db;
 });
 
 router.get('/', function (req, res) {
-    var dbo = database.db(DB_NAME);
-    dbo.collection("wb").find({}).toArray(function (err, result) {
-        if (err)
-            throw err;
+    let dbo = database.db(DB_CODE);
+    /*dbo.collection(CONN_CODE).find({"time":'3月16日 21:25iPhone客户端'}).toArray(function (err, result) {
+        if (err) throw err;
         console.log(result);
         return res.send(result);
-    });
+    });*/
+    dbo.collection(CONN_CODE).aggregate({"$group":{_id: 'max',max_value:{"$max":"time"}}}).toArray(function (err, result) {
+        if (err) throw err;
+        console.log(result);
+        return res.send(result);
+    });;
 });
 
-router('/insert', function (req, res) {
-    console.log(req.query.www);
-    return res.send(req.query.www);
+router.post('/insert', function (req, res) {
+    let dbo = database.db(DB_CODE);
+    let reviews = querystring.parse(req.body.review);
+    let data = {time: req.body.time,
+        content:req.body.content,
+        photo:req.body.photo,
+        video: req.body.video,
+        review: {
+            review_head : reviews.review_head,
+            review_time : reviews.review_time,
+            review_text : reviews.review_text,
+            review_img :  reviews.review_img,
+        }
+    };
+    // console.log(data);
+
+    dbo.collection(CONN_CODE).insertOne(data,function(err,result){
+        if (err) throw err;
+        console.log(result.result.ok);
+    });
+    //console.log(req.body);
+    return res.send(JSON.stringify(req.body.ok));
 });
 
 module.exports = router;

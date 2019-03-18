@@ -1,6 +1,8 @@
 // catch the content
-var fs = require('fs');
+// var fs = require('fs');
 let puppeteer = require("puppeteer");
+let TIME = require("./util/time");
+let PostData=require('./route/POST.js');
 let url = "https://weibo.com/u/5644764907?www.520730.com=&is_hot=1#1552099793389";
 
 // await browser.close();
@@ -55,6 +57,9 @@ puppeteer.launch({
     }catch (err) {}
     await newYcyPage.waitFor(1000); //ms
     let wb_cont = await ycy_wb(newYcyPage);
+    for (let wc of wb_cont){
+        PostData(wc,"insert");
+    }
     console.log(wb_cont);
 });
 
@@ -109,8 +114,9 @@ let ycy_wb = async function(newYcyPage) {
                     };
                 });
             }catch (err) {};
+            let RealTime = TIME.getRealTime(time);
             return {
-                time: time,
+                time: TIME.getCurrYear().YEAR+RealTime.T_+" "+RealTime.F_,
                 content: encodeURI(content),
                 photo: photo,
                 video: video == null ? "": video,
@@ -124,7 +130,7 @@ let ycy_wb = async function(newYcyPage) {
 };
 
 
-//写入json文件选项
+/*//写入json文件选项
 function writeJson(params){
     var str = JSON.stringify(params);//因为nodejs的写入文件只认识字符串或者二进制数，所以把json对象转换成字符串重新写入json文件中
     fs.writeFile('C:\\Users\\best\\Desktop\\ns\\person.json',str,function(err){
@@ -133,4 +139,4 @@ function writeJson(params){
         }
         console.log('----------新增成功-------------');
     })
-}
+}*/
