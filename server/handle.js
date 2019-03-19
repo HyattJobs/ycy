@@ -1,8 +1,12 @@
 // catch the content
 // var fs = require('fs');
 let puppeteer = require("puppeteer");
-let TIME = require("./util/time");
-let PostData=require('./route/POST.js');
+let {PATH} = require("./util/constant");
+let {getCurrYear,getRealTime} = require("./util/time");
+let PostData = require('./route/POST.js');
+let {getPrefix,isNull} = require('./util/fileutil');
+let {DOWN} = require('./util/download');
+
 let url = "https://weibo.com/u/5644764907?www.520730.com=&is_hot=1#1552099793389";
 
 // await browser.close();
@@ -13,8 +17,12 @@ puppeteer.launch({
         "--window-size=1920,1080"
     ]
 }).then(async browser => {
+
     //open a new tag
-    let newYcyPage = await browser.newPage();
+    let newYcyPage = await browser.newPage(); // 设置浏览器信息
+    const UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/63.0.3239.84 Chrome/63.0.3239.84 Safari/537.36";
+    newYcyPage.setUserAgent(UA);
+
     //await newYcyPage.setViewport({width:1920, height:1080});
     console.log("visit:\t"+url);
     // open the weibo
@@ -57,8 +65,37 @@ puppeteer.launch({
     }catch (err) {}
     await newYcyPage.waitFor(1000); //ms
     let wb_cont = await ycy_wb(newYcyPage);
-    for (let wc of wb_cont){
-        PostData(wc,"insert");
+    // download photos video head_img
+    let i = 0;
+    /*for (let wc of wb_cont){
+        console.log(i++);
+        // console.log(wc);
+        if (!isNull(wc.photo)){
+            for (let pho of wc.photo){
+                let photoHttp = getPrefix(pho);
+                try{
+                    pho = await DOWN(photoHttp,PATH.localPhoto,".jpg");
+                }catch (e) {}
+            }
+        };
+        if (!isNull(wc.video)){
+            let photoHttp = getPrefix(wc.video);
+            try{
+                wc.video = await DOWN(photoHttp,PATH.localVideo,".mp4");
+            }catch (e) {}
+        }
+        try {
+            wc.review.review_head = await DOWN(getPrefix(wc.review.review_head),PATH.localReview,".jpg");
+        }catch (e) {}
+        try{
+            wc.review.review_img = await DOWN(getPrefix(wc.review.review_img),PATH.localReview,".jpg");
+        }catch (e) {}
+    }*/
+    if (wb_cont != null) {
+        for (let wc of wb_cont) {
+            if (wc != null)
+                PostData(wc, "insert");
+        }
     }
     console.log(wb_cont);
 });
@@ -114,9 +151,10 @@ let ycy_wb = async function(newYcyPage) {
                     };
                 });
             }catch (err) {};
-            let RealTime = TIME.getRealTime(time);
+
+            // let RealTime = getRealTime(time);
             return {
-                time: TIME.getCurrYear().YEAR+RealTime.T_+" "+RealTime.F_,
+                time: time,//getCurrYear().YEAR+RealTime.T_+" "+RealTime.F_,
                 content: encodeURI(content),
                 photo: photo,
                 video: video == null ? "": video,

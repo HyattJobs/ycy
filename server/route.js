@@ -15,18 +15,14 @@ MongoClient.connect(DB_URL, {useNewUrlParser: true}, function (err, db) {
     database = db;
 });
 
-router.get('/', function (req, res) {
+router.get('/wb_data', function (req, res) {
     let dbo = database.db(DB_CODE);
-    /*dbo.collection(CONN_CODE).find({"time":'3月16日 21:25iPhone客户端'}).toArray(function (err, result) {
+    //查询微博数据
+    dbo.collection(CONN_CODE).find({}).sort({"time":-1}).toArray(function (err, result) {
         if (err) throw err;
         console.log(result);
         return res.send(result);
-    });*/
-    dbo.collection(CONN_CODE).aggregate({"$group":{_id: 'max',max_value:{"$max":"time"}}}).toArray(function (err, result) {
-        if (err) throw err;
-        console.log(result);
-        return res.send(result);
-    });;
+    });
 });
 
 router.post('/insert', function (req, res) {
