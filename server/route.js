@@ -7,8 +7,9 @@ let database;
 let DB_URL = 'mongodb://35.235.89.251:27017/';
 let DB_CODE = "hpday";
 let CONN_CODE = "wb";
-//启动时连接数据库
-MongoClient.connect(DB_URL, {useNewUrlParser: true}, function (err, db) {
+console.log("start server")
+//启动时连接数据库 {useNewUrlParser: true}
+MongoClient.connect(DB_URL, function (err, db) {
     if (err)
         throw err;
     console.log("database connect success！");
@@ -27,7 +28,7 @@ router.get('/wb_data', function (req, res) {
 
 router.post('/insert', function (req, res) {
     let dbo = database.db(DB_CODE);
-    let reviews = querystring.parse(req.body.review);
+    let reviews = JSON.parse(decodeURI(req.body.review));
     let data = {time: req.body.time,
         content:req.body.content,
         photo:req.body.photo,
@@ -39,14 +40,12 @@ router.post('/insert', function (req, res) {
             review_img :  reviews.review_img,
         }
     };
-    // console.log(data);
-
     dbo.collection(CONN_CODE).insertOne(data,function(err,result){
         if (err) throw err;
         console.log(result.result.ok);
     });
     //console.log(req.body);
-    return res.send(JSON.stringify(req.body.ok));
+    return res.send(JSON.stringify(data));
 });
 
 module.exports = router;

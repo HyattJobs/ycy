@@ -1,14 +1,17 @@
 // catch the content
-// var fs = require('fs');
+ var fs = require('fs');
 let puppeteer = require("puppeteer");
 let {PATH} = require("./util/constant");
 let {getCurrYear,getRealTime} = require("./util/time");
 let PostData = require('./route/POST.js');
-let {getPrefix,isNull} = require('./util/fileutil');
+let {getPrefix,isNull,isEmptyObject} = require('./util/fileutil');
 let {DOWN} = require('./util/download');
 
 let url = "https://weibo.com/u/5644764907?www.520730.com=&is_hot=1#1552099793389";
+//写入json文件选项
+function writeJson(params){
 
+}
 // await browser.close();
 puppeteer.launch({
     executablePath:"C:/Program Files (x86)/Google/Chrome/Application/chrome.exe",
@@ -66,8 +69,8 @@ puppeteer.launch({
     await newYcyPage.waitFor(1000); //ms
     let wb_cont = await ycy_wb(newYcyPage);
     // download photos video head_img
-    let i = 0;
-    /*for (let wc of wb_cont){
+    /*let i = 0;
+    for (let wc of wb_cont){
         console.log(i++);
         // console.log(wc);
         if (!isNull(wc.photo)){
@@ -75,29 +78,41 @@ puppeteer.launch({
                 let photoHttp = getPrefix(pho);
                 try{
                     pho = await DOWN(photoHttp,PATH.localPhoto,".jpg");
-                }catch (e) {}
+                }catch (e) {
+                    console.log(e)
+                }
             }
         };
         if (!isNull(wc.video)){
             let photoHttp = getPrefix(wc.video);
             try{
                 wc.video = await DOWN(photoHttp,PATH.localVideo,".mp4");
-            }catch (e) {}
+            }catch (e) {
+                console.log(e)
+            }
         }
         try {
             wc.review.review_head = await DOWN(getPrefix(wc.review.review_head),PATH.localReview,".jpg");
-        }catch (e) {}
+        }catch (e) {
+            console.log(e)
+        }
         try{
             wc.review.review_img = await DOWN(getPrefix(wc.review.review_img),PATH.localReview,".jpg");
-        }catch (e) {}
+        }catch (e) {
+            console.log(e)
+        }
     }*/
+    //writeJson();
+
+   // console.log(wb_cont);
+
+
     if (wb_cont != null) {
         for (let wc of wb_cont) {
-            if (wc != null)
+            if (isEmptyObject(wc))
                 PostData(wc, "insert");
         }
     }
-    console.log(wb_cont);
 });
 
 let ycy_wb = async function(newYcyPage) {
@@ -168,13 +183,4 @@ let ycy_wb = async function(newYcyPage) {
 };
 
 
-/*//写入json文件选项
-function writeJson(params){
-    var str = JSON.stringify(params);//因为nodejs的写入文件只认识字符串或者二进制数，所以把json对象转换成字符串重新写入json文件中
-    fs.writeFile('C:\\Users\\best\\Desktop\\ns\\person.json',str,function(err){
-        if(err){
-            console.error(err);
-        }
-        console.log('----------新增成功-------------');
-    })
-}*/
+

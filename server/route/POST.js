@@ -3,8 +3,10 @@ var querystring = require('querystring');
 
 let PostData = function(obj,url) {
     // console.log(obj);
-    let reviews = querystring.stringify(obj.review);
+    let reviews = encodeURI(JSON.stringify(obj.review));
     obj.review = reviews;
+/*    console.log(reviews)
+    console.log(obj)*/
     // console.log(reviews);
     let contents = querystring.stringify(obj);
     // console.log(contents)
@@ -24,7 +26,7 @@ let PostData = function(obj,url) {
     var req = http.request(options, function (res) {
         res.setEncoding('utf8');
         res.on('data', function (data) {
-            //console.log("insert success data:", data);   //一段html代码
+            console.log(data);   //一段html代码
         });
     });
 
