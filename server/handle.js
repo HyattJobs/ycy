@@ -8,9 +8,18 @@ let {getPrefix,isNull,isEmptyObject} = require('./util/fileutil');
 let {DOWN} = require('./util/download');
 
 let url = "https://weibo.com/u/5644764907?www.520730.com=&is_hot=1#1552099793389";
-//写入json文件选项
-function writeJson(params){
 
+if (!fs.existsSync(PATH.localPhoto)) {
+    fs.mkdirSync(PATH.localPhoto);
+    console.log(`create ${PATH.localPhoto} success.`);
+}
+if (!fs.existsSync(PATH.localVideo)) {
+    fs.mkdirSync(PATH.localVideo);
+    console.log(`create ${PATH.localVideo} success.`);
+}
+if (!fs.existsSync(PATH.localReview)) {
+    fs.mkdirSync(PATH.localReview);
+    console.log(`create ${PATH.localReview} success.`);
 }
 // await browser.close();
 puppeteer.launch({
@@ -69,13 +78,11 @@ puppeteer.launch({
     await newYcyPage.waitFor(1000); //ms
     let wb_cont = await ycy_wb(newYcyPage);
     // download photos video head_img
-    /*let i = 0;
     for (let wc of wb_cont){
-        console.log(i++);
-        // console.log(wc);
         if (!isNull(wc.photo)){
             for (let pho of wc.photo){
                 let photoHttp = getPrefix(pho);
+                console.log("starting down loading ---- "+photoHttp);
                 try{
                     pho = await DOWN(photoHttp,PATH.localPhoto,".jpg");
                 }catch (e) {
@@ -84,35 +91,37 @@ puppeteer.launch({
             }
         };
         if (!isNull(wc.video)){
-            let photoHttp = getPrefix(wc.video);
+            let videoHttp = getPrefix(wc.video);
+            console.log("starting down loading ---- "+videoHttp);
             try{
-                wc.video = await DOWN(photoHttp,PATH.localVideo,".mp4");
+                wc.video = await DOWN(videoHttp,PATH.localVideo,".mp4");
             }catch (e) {
                 console.log(e)
             }
         }
         try {
+            console.log("starting down loading ---- "+getPrefix(wc.review.review_head));
             wc.review.review_head = await DOWN(getPrefix(wc.review.review_head),PATH.localReview,".jpg");
         }catch (e) {
             console.log(e)
         }
         try{
+            console.log("starting down loading ---- "+getPrefix(wc.review.review_img));
             wc.review.review_img = await DOWN(getPrefix(wc.review.review_img),PATH.localReview,".jpg");
         }catch (e) {
             console.log(e)
         }
-    }*/
+    }
     //writeJson();
 
    // console.log(wb_cont);
-
-
     if (wb_cont != null) {
         for (let wc of wb_cont) {
-            if (isEmptyObject(wc))
+            if (!isEmptyObject(wc.time))
                 PostData(wc, "insert");
         }
     }
+
 });
 
 let ycy_wb = async function(newYcyPage) {

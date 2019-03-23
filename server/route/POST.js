@@ -5,13 +5,8 @@ let PostData = function(obj,url) {
     // console.log(obj);
     let reviews = encodeURI(JSON.stringify(obj.review));
     obj.review = reviews;
-/*    console.log(reviews)
-    console.log(obj)*/
-    // console.log(reviews);
+    console.log(obj);
     let contents = querystring.stringify(obj);
-    // console.log(contents)
-    // console.log(querystring.parse(contents));
-    // console.log(contents);
     let options = {
         host: 'localhost',
         port: 2300,
