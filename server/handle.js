@@ -7,7 +7,7 @@ let PostData = require('./route/POST.js');
 let {getPrefix,isNull,isEmptyObject} = require('./util/fileutil');
 let {DOWN} = require('./util/download');
 
-let url = "https://weibo.com/u/5644764907?www.520730.com=&is_hot=1#1552099793389";
+let url = "https://weibo.com/u/5644764907?www.520730.com=&is_all=1";
 
 if (!fs.existsSync(PATH.localPhoto)) {
     fs.mkdirSync(PATH.localPhoto);
@@ -67,7 +67,9 @@ puppeteer.launch({
 
     for (let j = 0; j < count*2; j++) {
         try {
+            await newYcyPage.waitFor(100); // 单位是毫秒
             let reviewSpan = await newYcyPage.$(`#Pl_Official_MyProfileFeed__20 > div > div:nth-child(${j}) > div.WB_feed_handle > div > ul > li > a > span > span > span > em.ficon_repeat`);
+            await newYcyPage.waitFor(200); // 单位是毫秒
             await reviewSpan.click();
         }catch (err) {}
     }
@@ -78,7 +80,7 @@ puppeteer.launch({
     await newYcyPage.waitFor(1000); //ms
     let wb_cont = await ycy_wb(newYcyPage);
     // download photos video head_img
-    for (let wc of wb_cont){
+   /* for (let wc of wb_cont){
         if (!isNull(wc.photo)){
             for (let pho of wc.photo){
                 let photoHttp = getPrefix(pho);
@@ -111,14 +113,18 @@ puppeteer.launch({
         }catch (e) {
             console.log(e)
         }
-    }
+    }*/
     //writeJson();
 
    // console.log(wb_cont);
     if (wb_cont != null) {
         for (let wc of wb_cont) {
-            if (!isEmptyObject(wc.time))
-                PostData(wc, "insert");
+            if (!isEmptyObject(wc.time)){
+                new Promise(function () {
+                    console.log(wc.time)
+                    PostData(wc, "isContains");
+                })
+            }
         }
     }
 

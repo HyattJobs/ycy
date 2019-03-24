@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>超越在你身边</title>
     <script src="./js/jquery-3.3.1.js"></script>
+    <script src="./util/fileutil.js"></script>
     <!-- WOW.js -->
     <link rel="stylesheet" href="./css/animate.css">
     <link rel="stylesheet" href="./css/kissui.css">
@@ -22,23 +23,26 @@
             background-repeat:no-repeat;
             background-size:100% 100%; 
             background-attachment: fixed;
-            overflow-x: hidden; 
-            overflow-y: hidden; 
+            text-align: center;
+            /*overflow-x: hidden; */
+            /*overflow-y: hidden; */
         }
         ::-webkit-scrollbar{
             display:none;
         }
         
         #div1{
+            /*position: relative;*/
             background-color: rgba(0,0,0,0.2);
             float: left;
             width: 50%;
-            height: 50%;
+            height: 37%;
         }
 
         .div1_head {
             position: relative;
-            margin: 0 0 0 50px;
+            margin: 0 0 0 0;
+            left: 5%;
             animation-duration: 0.5s;
             animation-delay: 0.2s;
             /* animation-iteration-count: infinite; */
@@ -167,6 +171,7 @@
             background: rgba(255,255,255,0.3);
             border-radius: 50%;
         }
+
         .div1_headimg{
             width: 90px;
             height: 90px;
@@ -187,6 +192,10 @@
             -o-transform: rotate(-11deg);
         }
 
+        .div1_title{
+            margin-top: 10px;
+        }
+
         .div1_content{
             position: absolute;
             top: 0;
@@ -198,24 +207,63 @@
 
         .div1_wbtime{
             float: right;
+            margin-top: -30px;
             background-color:darkblue;
         }
 
         .div1_conval{
-            position: absolute;
-            width: 400px;
-            height: auto;
+            position: relative;
+            width: 70%;
+            /*height: auto;*/
             background: #f30000;
-            margin: 0 auto;
-            left: 50%;
-            margin-left: -150px;
+            /*margin: 0 auto;*/
+            left: 25%;
+            /*margin-left: -150px;*/
             text-align: left;
-            
-            box-sizing: border-box;
+            /*box-sizing: border-box;*/
+        }
+
+        .wb_pho_ul{
+            position: relative;
+            list-style: none;
+            width: 100%;
+            clear: both;
+            float: left;
+            /*line-height: 10px;*/
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            /*padding: 0;*/
+        }
+
+        .wb_pho_li{
+            position: relative;
+            float: left;
+            /*width: 10%;*/
+            margin: 10px auto;
+            display: inline-block;
+            /*display: flex;*/
+            /*align-items: center;*/
+            /*padding: 0;*/
+        }
+
+        .wb_pho_img{
+            width: 100px;
+            height: 100px;
+        }
+
+        .wb_video_style{
+            position: relative;
+            width: 100%;
+            height: inherit;
+            margin: 10px auto 0;
+            left: 10%;
         }
 
         .div1_video{
-            position: absolute;
+            /*position: absolute;*/
+            position: relative;
+            margin: 0 auto;
             right: 0px;
             /*bottom: 0px;*/
         }
@@ -224,20 +272,89 @@
             background-color: rgba(0,0,0,0.9);
             float: left;
             width: 50%;
-            height: 50%;
+            height: 30%;
         }
         #div3{
-            background-color: #f30;
-            /*float: left;*/
+            position: relative;
+            /*background-color: #f30;*/
+            clear: both;
+            float: left;
             width: 50%;
-            height: 40%;
-            margin-top:30%;
+            height: auto;
+            /*margin-top:30%;*/
         }
         #div4{
             background-color: rgba(0,0,0,0.2);
             float: left;
             width: 50%;
-            height: 50%;
+            height: auto;
+        }
+        #div5{
+            position: relative;
+            /*top: 20px;*/
+            background-color: rgba(0,0,0,0.2);
+            clear: both;
+            float: left;
+            width: 50%;
+            /*height: inherit;*/
+        }
+
+        .wb_review_ul{
+            position: relative;
+            list-style: none;
+            width: 100%;
+            clear: both;
+            /*float: left;*/
+            /*line-height: 10px;*/
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            /*padding: 0;*/
+        }
+
+        .wb_review_li{
+            position: relative;
+            /*float: left;*/
+            width: 33.3%;
+            height: 200px;
+            overflow: hidden;
+            margin: 10px auto;
+            /*display:inline-block;*/
+            /*display: flex;*/
+            /*align-items: center;*/
+            /*padding: 0;*/
+        }
+        /*.wb_review_div1 {
+            margin: 0 auto;
+            display: flex;
+            align-items: center
+        }*/
+
+        .wb_review_div2{
+            /*margin: 0 auto;*/
+            height: 68px;
+            /*display: flex;*/
+            /*align-items: center*/
+            overflow: hidden;
+        }
+
+        .wb_review_nick{
+            font-size: 0.9em;
+            font-weight: 600;
+            /*color: #f30;*/
+        }
+        .wb_review_text{
+            clear: both;
+            font-size: 0.9em;
+            margin-top: 2px;
+            letter-spacing: 0px;
+        }
+        #div6{
+            clear: both;
+            background-color: rgba(0,0,0,0.9);
+            float: left;
+            width: 50%;
+            height: auto;
         }
     </style>
 </head>
@@ -265,27 +382,44 @@
             <h4 id="wb_title" class="div1_title" data-kui-anim="flipInY">
                     超越又发微博了
             </h4>
-            <span id="wb_time" class="div1_wbtime">👪时间</span>
+                <span id="wb_time" class="div1_wbtime">👪时间</span>
             </div>
             <div id="wb_content" class="div1_conval" >
                 &nbsp&nbsp
             </div>
-            <video id="wb_video" class="div1_video fadeInDownBig animated" width="320" height="240" controls>
-                <source src="movie.mp4" type="video/mp4">
-                <source src="movie.ogg" type="video/ogg">
-                您的浏览器不支持 video 标签。
-            </video>
-            <img src="http://wx4.sinaimg.cn/thumb150/006a0Rdhly1fyhyvt3648j31o027vx2t.jpg">
+
+            <!--<img src="http://wx4.sinaimg.cn/thumb150/006a0Rdhly1fyhyvt3648j31o027vx2t.jpg">-->
         </div>
     </div>
     <div id="div2">
            
     </div>
     <div id="div3">
-            {{ message }}
+        <div class="wb_video_style">
+            <video id="wb_video" class="div1_video fadeInLeftBig animated" width="400" height="220" controls>
+                <source src="" type="video/mp4">
+                <source src="" type="video/ogg">
+                您的浏览器不支持 video 标签。
+            </video>
+        </div>
+        <ul id="wb_pho_ul" class="wb_pho_ul">
+            <!--<div class="wb_pho_li"><img src="http://wx4.sinaimg.cn/thumb150/006a0Rdhly1fyhyvt3648j31o027vx2t.jpg" alt=""></div>-->
+        </ul>
     </div>    
     <div id="div4">
             {{ message }}
+    </div>
+    <div id="div5">
+        <div id="div5_review" class="div5_review">
+            <ul class="wb_review_ul">
+                <!--<li class="wb_review_li">
+
+                </li>-->
+            </ul>
+        </div>
+    </div>
+    <div id="div6">
+        {{ message }}
     </div>
     <script src="./js/scrollanim.min.js"></script>
     <script>
@@ -298,10 +432,51 @@
     var $animate = $('#animate');
     let url = "http://localhost:2300/";
     let userData = {"NA":"NA"};
+
     $.get(url+"wb_data",function(data,status){
         console.log(data);
         //$("#wb_content").text(data);
-        //wb_contine(data[0].na);
+        let data0 = data[0];
+        let data0content = decodeURI(data0.content);
+        $("#wb_content").hide();
+        $("#wb_content").text(data0content);
+        let contentHeight = $("#wb_content").height();
+        $("#wb_content").html("&nbsp&nbsp&nbsp&nbsp");
+        $("#wb_content").height(contentHeight);
+        $("#wb_content").show();
+        wb_contine(data0content);
+        $("#wb_time").text(data0.time);
+
+        if(data0.video == null || data0.video == ""){
+            $("#wb_video").hide();
+            let photoNull = true;
+            for (var key in data0.photo){
+                photoNull = false;
+            }
+            if(!photoNull){
+                if (typeof data0.photo === "string") {
+                    $("#wb_pho_ul").append(`<li class=\"wb_pho_li\"><img width="85%"  height="80%" src=\"http:${data0.photo}\" /></li>`);
+                }else{
+                    for (let vap of data0.photo) {
+                        $("#wb_pho_ul").append(`<li class=\"wb_pho_li\"><img width="85%"  height="80%" src=\"http:${vap}\" /></li>`)
+                    }
+                }
+            }
+        }else{
+            document.getElementById("wb_video").src=data0.video;
+            document.getElementById("wb_video").play();
+        }
+        // $("#div5_review").text(decodeURI(data0.review));
+        let revi = 0;
+        for (let vap of JSON.parse(decodeURI(data0.review))) {
+            if (revi < 3){
+
+                let getRealReviewContent = getRealReview(decodeURI(vap.review_text));
+                console.log(getRealReviewContent)
+                $("#div5_review > ul").append(`<li class=\"wb_review_li\"><div class="wb_review_div1"><div class="wb_review_div2" ><img width="20" height="20" align="top" style="position:relative;" src="${vap.review_head}" alt=""><span class="wb_review_nick">${getRealReviewContent.nick}</span><span class="wb_review_text">${getRealReviewContent.text}</span></div><img width="80"  height="80" style="margin-top: 5px" src=\"http:${vap.review_img}\" /></div></li>`)
+            }
+            revi +=1;
+        }
     });
 
     function wb_contine(data) {
@@ -321,14 +496,11 @@
         console.log(data);
     }
 
-    $("#wb_title").text(decodeURI(encodeURI("👪时间")));
+    //$("#wb_title").text(decodeURI(encodeURI("👪时间")));
         // kissuiScrollAnim.add(document.getElementById('dowebok'), {
         //     'in': 'bounceIn'
         //     });
     //document.getElementById("wb_video").src="C:/Users/best/Desktop/new/ycy/server_core/file/ycy.mp4";
-    document.getElementById("wb_video").src="http://f.us.sinaimg.cn/001IB7NNlx07r03xU2py01041200bgbQ0E010.mp4?label=mp4_720p&template=960x720.20.0&Expires=1552816791&ssig=KlYNnJT%2FJ0&KID=unistore,video";
-    document.getElementById("wb_video").play();
-
     //$animate.
     </script>
 </body>

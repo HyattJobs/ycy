@@ -1,11 +1,9 @@
 var http = require('http');
 var querystring = require('querystring');
 
-let PostData = function(obj,url) {
-    // console.log(obj);
+let PostData =  function(obj,url) {
     let reviews = encodeURI(JSON.stringify(obj.review));
     obj.review = reviews;
-    console.log(obj);
     let contents = querystring.stringify(obj);
     let options = {
         host: 'localhost',
@@ -17,16 +15,24 @@ let PostData = function(obj,url) {
             'Content-Length': contents.length
         }
     };
-
     var req = http.request(options, function (res) {
         res.setEncoding('utf8');
         res.on('data', function (data) {
-            console.log(data);   //一段html代码
+            console.log(data);
+            if(data === "true"){
+                return PostData(obj,"insert");
+            }
+             // data;   //一段html代码
         });
     });
 
-    req.write(contents);
-    req.end;
+    try {
+        req.write(contents);
+        return req;
+    }catch (e) {
+    }finally {
+        req.end;
+    }
 };
 
 module.exports = PostData;
