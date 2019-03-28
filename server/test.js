@@ -54,18 +54,19 @@ client.newsSummary(content, maxSummaryLen).then(function(result) {
 */
 
 
-/*// 调用对话情绪识别接口
+// 调用对话情绪识别接口
 client.emotion(text).then(function(result) {
     console.log(JSON.stringify(result));
 }).catch(function(err) {
     // 如果发生网络错误
     console.log(err);
-});*/
+});
 
 // 调用文章标签
+/*
 client.keyword(title, content).then(function(result) {
     console.log(JSON.stringify(result));
 }).catch(function(err) {
     // 如果发生网络错误
     console.log(err);
-});
+});*/

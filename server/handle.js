@@ -8,7 +8,7 @@ let {getPrefix,isNull,isEmptyObject} = require('./util/fileutil');
 let {DOWN} = require('./util/download');
 
 let url = "https://weibo.com";///u/5644764907?www.520730.com=&is_all=1";
-
+let url_ycy = "https://weibo.com/u/5644764907?www.520730.com=&is_all=1";
 if (!fs.existsSync(PATH.localPhoto)) {
     fs.mkdirSync(PATH.localPhoto);
     console.log(`create ${PATH.localPhoto} success.`);
@@ -40,8 +40,8 @@ puppeteer.launch({
     // open the weibo
     await newYcyPage.goto(url);
     // <h1 class="username"> elements
-    // await newYcyPage.waitFor("h1.username");
-    await newYcyPage.waitForNavigation({timeout:30000});
+    // await newYcyPage.waitFor("h1.username"); {timeout:30000}
+    await newYcyPage.waitForNavigation();
     // require jquery
     await newYcyPage.addScriptTag({
         url: "https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"
@@ -51,7 +51,9 @@ puppeteer.launch({
     await newYcyPage.click('#login_form_savestate');
     await newYcyPage.click('#pl_login_form > div > div:nth-child(3) > div.info_list.login_btn > a');
     //使用用户登录
-    await newYcyPage.waitForNavigation({timeout:30000});
+    await newYcyPage.waitForNavigation();
+    //goto ycy
+    await newYcyPage.goto(url_ycy);
     // require jquery
     await newYcyPage.addScriptTag({
         url: "https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"
